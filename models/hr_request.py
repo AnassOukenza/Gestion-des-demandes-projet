@@ -8,7 +8,7 @@ from odoo.tools import file_open
 from odoo.tools.image import image_data_uri
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 
 
 class HrRequest(models.Model):
@@ -596,6 +596,46 @@ class HrRequest(models.Model):
         self._workflow_write({'state': 'submitted', 'submitted_date': fields.Datetime.now()})
         self._notify_current_validators()
 
+    def _get_report_request(self):
+        """Préparer les données du rapport dans la seule société autorisée.
+
+        Vérifier le demandeur et le gestionnaire avant de changer le contexte.
+        Aucun droit de lecture supplémentaire n'est accordé par sudo au rendu.
+        """
+        self.ensure_one()
+        self._check_report_access()
+        company = self.requester_employee_id.sudo().company_id
+        if not company or company.id not in self.env.user.company_ids.ids:
+            raise UserError(self.env._(
+                'The requesting employee must belong to a company you are allowed to access.'
+            ))
+        report_request = self.with_context(
+            allowed_company_ids=[company.id],
+        ).with_company(company)
+        try:
+            employee = report_request.requester_employee_id
+            employee.check_access('read')
+            # Relational metadata is inspected only after request authorization.
+            # Never read or expose the name of an inaccessible foreign department.
+            for related in (report_request.department_id, employee.job_id):
+                if related:
+                    related_company = related.sudo().company_id
+                    if related_company and related_company.id != company.id:
+                        raise UserError(self.env._(
+                            'The department or job on this request belongs to another company. '
+                            'Ask HR to check the employee and request before generating the document.'
+                        ))
+                    related.check_access('read')
+                    related.name
+            employee.name
+            company.with_env(report_request.env).read(['name', 'street', 'city', 'zip', 'email', 'phone', 'logo'])
+        except AccessError as error:
+            raise UserError(self.env._(
+                'You cannot read the employee information required for this document. '
+                'Ask HR to check the company, department, job and your access rights.'
+            )) from error
+        return report_request
+
     def action_download_to_sign(self):
         """Générer ou réutiliser le PDF non signé après vérification de son rattachement."""
         self.ensure_one()
@@ -607,8 +647,11 @@ class HrRequest(models.Model):
             code = self.request_type_id._document_code()
             if code not in ('work_certificate', 'salary_certificate', 'credit_request'):
                 raise UserError(self.env._('No document template is configured for this request type.'))
-            report = self.env.ref('hr_requests.action_report_' + code)
-            pdf, _ = report.with_context(lang='fr_FR')._render_qweb_pdf(report.report_name, res_ids=self.ids)
+            report_request = self._get_report_request()
+            report = report_request.env.ref('hr_requests.action_report_' + code)
+            pdf, _ = report.with_context(lang='fr_FR')._render_qweb_pdf(
+                report.report_name, res_ids=report_request.ids,
+            )
             attachment = self.env['ir.attachment'].sudo().create({
                 'name': '%s - %s.pdf' % (self._document_label_fr(), self.requester_employee_id.name),
                 'datas': base64.b64encode(pdf), 'mimetype': 'application/pdf',

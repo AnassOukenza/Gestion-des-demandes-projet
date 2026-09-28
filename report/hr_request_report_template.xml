@@ -2,7 +2,7 @@
 <odoo>
   <!-- Rapports appelés depuis le workflow. Les contrôles Python invoqués par les modèles de rapport protègent aussi les accès directs. -->
 <template id="report_work_certificate"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
-      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="request" t-value="request._get_report_request()"/>
       <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
       <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
  .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
@@ -30,14 +30,14 @@
           <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
         <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>ATTESTATION DE TRAVAIL</h1>
         <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
-        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, certifions que <strong t-field="request.requester_employee_id.name"/> fait partie des effectifs de notre société.</p>
-<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-field="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div></div>
+        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, certifions que <strong t-esc="request.requester_employee_id.name"/> fait partie des effectifs de notre société.</p>
+<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-esc="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-esc="request.department_id.name"/></div></div>
 <p>La présente attestation est délivrée à la demande de l’intéressé(e), pour servir et valoir ce que de droit.</p></div>
         <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>
         <div class="hr-document-footer"><strong t-esc="company.name"/> · Service des ressources humaines<br/>Référence : <span t-esc="request.name"/></div>
       </div></div></t></t></template>
 <template id="report_salary_certificate"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
-      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="request" t-value="request._get_report_request()"/>
       <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
       <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
  .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
@@ -65,14 +65,14 @@
           <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
         <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>ATTESTATION DE SALAIRE</h1>
         <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
-        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, attestons que <strong t-field="request.requester_employee_id.name"/> est employé(e) au sein de notre société.</p>
-<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-field="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div></div>
+        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, attestons que <strong t-esc="request.requester_employee_id.name"/> est employé(e) au sein de notre société.</p>
+<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-esc="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-esc="request.department_id.name"/></div></div>
 <p>La présente attestation est établie à la demande de l’intéressé(e). Cette version ne comporte aucun montant de rémunération.</p></div>
         <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>
         <div class="hr-document-footer"><strong t-esc="company.name"/> · Service des ressources humaines<br/>Référence : <span t-esc="request.name"/></div>
       </div></div></t></t></template>
 <template id="report_credit_request"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
-      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="request" t-value="request._get_report_request()"/>
       <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
       <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
  .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
@@ -100,8 +100,8 @@
           <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
         <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>DEMANDE DE CRÉDIT</h1>
         <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
-        <div class="content"><p>La présente demande de crédit est établie pour <strong t-field="request.requester_employee_id.name"/>, employé(e) au sein de <strong t-esc="company.name"/>.</p>
-<div class="info" t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div>
+        <div class="content"><p>La présente demande de crédit est établie pour <strong t-esc="request.requester_employee_id.name"/>, employé(e) au sein de <strong t-esc="company.name"/>.</p>
+<div class="info" t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-esc="request.department_id.name"/></div>
 <div t-if="request.description"><span class="label">OBJET ET INFORMATIONS COMMUNIQUÉES</span><p style="white-space:pre-wrap" t-esc="request.description"/></div>
 <p>Ce document récapitule la demande de l’employé. Il ne constitue ni un accord de financement ni un engagement de caution de l’employeur.</p></div>
         <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>

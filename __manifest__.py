@@ -1,6 +1,6 @@
 {
     'name': 'Document Management',
-    'version': '1.0',
+    'version': '18.0.1.0.2',
     'category': 'Human Resources',
     'summary': 'Manage employee document requests and certificates',
     'license': 'LGPL-3',

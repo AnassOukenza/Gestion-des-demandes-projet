@@ -1000,3 +1000,24 @@ msgid ""
 "                    to an employee profile.\n"
 "                    Please contact HR."
 msgstr "Votre compte portail n’est lié à aucune fiche employé. Veuillez contacter le service RH."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "The requesting employee must belong to a company you are allowed to access."
+msgstr "L’employé demandeur doit appartenir à une société à laquelle vous êtes autorisé à accéder."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "The department or job on this request belongs to another company. Ask HR to check the employee and request before generating the document."
+msgstr "Le département ou le poste de cette demande appartient à une autre société. Demandez aux RH de vérifier la fiche employé et la demande avant de générer le document."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "You cannot read the employee information required for this document. Ask HR to check the company, department, job and your access rights."
+msgstr "Vous ne pouvez pas consulter les informations de l’employé nécessaires à ce document. Demandez aux RH de vérifier la société, le département, le poste et vos droits d’accès."
