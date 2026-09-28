@@ -1021,3 +1021,36 @@ msgstr "Le département ou le poste de cette demande appartient à une autre soc
 #: code:addons/hr_requests/models/hr_request.py:0
 msgid "You cannot read the employee information required for this document. Ask HR to check the company, department, job and your access rights."
 msgstr "Vous ne pouvez pas consulter les informations de l’employé nécessaires à ce document. Demandez aux RH de vérifier la société, le département, le poste et vos droits d’accès."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "The selected company is not allowed for this user."
+msgstr "La société sélectionnée n’est pas autorisée pour cet utilisateur."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Several employee profiles match your account. Ask HR to resolve this ambiguity."
+msgstr "Plusieurs fiches employé correspondent à votre compte. Demandez aux RH de corriger cette ambiguïté."
+
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "No employee is linked to your account in the selected company. Contact HR."
+msgstr "Aucun employé n’est lié à votre compte dans la société sélectionnée. Contactez les RH."
+
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_no_employee
+msgid "Employee profile unavailable"
+msgstr "Fiche employé indisponible"
+
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_no_employee
+msgid "Your portal account must be linked to exactly one active employee profile. Please contact HR."
+msgstr "Votre compte portail doit être lié à une seule fiche employé active. Veuillez contacter les RH."

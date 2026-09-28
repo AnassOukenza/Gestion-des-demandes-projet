@@ -117,28 +117,45 @@ class HrRequest(models.Model):
     )
 
     # Current employee
-    def _get_employee_for_user(self, user=None):
-        """Retrouver l’employé via le contact portail ou le compte utilisateur interne.
+    def _get_employee_for_user(self, user=None, company=None, strict=True):
+        """Résoudre une fiche unique sans choisir arbitrairement un employé.
 
-        Attention : la recherche actuelle prend le premier résultat, sans filtrer
-        sur la société active. La société de la demande vient ensuite de cet employé.
+        Les internes utilisent la société active, ou celle explicitement fournie.
+        Le portail reste lié au contact professionnel, indépendamment du sélecteur
+        de sociétés. Les notifications peuvent demander une résolution non stricte
+        pour utiliser l'adresse du contact si la fiche est absente ou ambiguë.
         """
         user = user or self.env.user
         Employee = self.env['hr.employee'].sudo()
-
-        if user.has_group('base.group_portal'):
-            return Employee.search([
-                ('work_contact_id', '=', user.partner_id.id),
-            ], limit=1)
-
-        return Employee.search([
-            ('user_id', '=', user.id),
-        ], limit=1)
+        portal = user.has_group('base.group_portal')
+        if portal:
+            domain = [('work_contact_id', '=', user.partner_id.id)]
+        else:
+            company = company or self.env.company
+            if company.id not in user.company_ids.ids:
+                if strict:
+                    raise UserError(self.env._(
+                        'The selected company is not allowed for this user.'
+                    ))
+                return Employee.browse()
+            domain = [('user_id', '=', user.id), ('company_id', '=', company.id)]
+        employees = Employee.search(domain, limit=2)
+        if len(employees) > 1:
+            if strict:
+                raise UserError(self.env._(
+                    'Several employee profiles match your account. Ask HR to resolve this ambiguity.'
+                ))
+            return Employee.browse()
+        if not employees and not portal and strict:
+            raise UserError(self.env._(
+                'No employee is linked to your account in the selected company. Contact HR.'
+            ))
+        return employees
 
     def _get_hr_assistance_employees(self, user=None):
         """Réunir l’employé du compte et les employés qui lui sont affectés."""
         user = user or self.env.user
-        own_employee = self._get_employee_for_user(user)
+        own_employee = self._get_employee_for_user(user, strict=False)
         if not user.has_group('hr_requests.group_hr_request_hr_assistance'):
             return own_employee
         return (own_employee | user.sudo().managed_employee_ids).sorted('name')
@@ -155,7 +172,10 @@ class HrRequest(models.Model):
         d’un compte portail ordinaire, limité à ses propres demandes.
         """
         current_user = self.env.user
-        own_employee = self._get_employee_for_user(current_user)
+        own_employee = self._get_employee_for_user(
+            current_user,
+            strict=not current_user.has_group('hr_requests.group_hr_request_hr_assistance'),
+        )
         if not requester_employee.exists():
             raise UserError(self.env._('Please select a valid employee.'))
 
@@ -184,7 +204,10 @@ class HrRequest(models.Model):
     def create(self, vals_list):
         """Initialiser une demande en brouillon et refuser les valeurs de workflow entrantes."""
         current_user = self.env.user
-        own_employee = self._get_employee_for_user(current_user)
+        own_employee = self._get_employee_for_user(
+            current_user,
+            strict=not current_user.has_group('hr_requests.group_hr_request_hr_assistance'),
+        )
 
         for vals in vals_list:
             vals.pop('company_id', None)
@@ -359,7 +382,9 @@ class HrRequest(models.Model):
         return 'queued'
 
     def _get_user_email(self, user):
-        employee = self._get_employee_for_user(user)
+        employee = self._get_employee_for_user(
+            user, company=self.requester_employee_id.sudo().company_id, strict=False,
+        )
 
         if employee and employee.work_email:
             return employee.work_email
@@ -516,7 +541,7 @@ class HrRequest(models.Model):
         ])
         creator = self.create_uid.sudo()
         if not assistants and not (creator.has_group('hr_requests.group_hr_request_hr_assistance')
-                and requester == self._get_employee_for_user(creator)):
+                and requester == self._get_employee_for_user(creator, strict=False)):
             self._post_note('Aucune copie envoyée à l’assistance RH : aucun assistant actif n’est affecté à cet employé. Vérifiez Configuration → Affecter les employés.')
         for assistant in assistants:
             # Portal login/contact is the primary notification address for an assistant.

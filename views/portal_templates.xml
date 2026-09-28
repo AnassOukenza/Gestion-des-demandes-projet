@@ -356,11 +356,9 @@
       <div class="o_hr_requests py-2 py-md-3">
         <t t-call="hr_requests.portal_hr_request_navigation"/>
         <div class="alert alert-warning" role="status">
-          <h4><i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Employee profile not found</h4>
+          <h4><i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Employee profile unavailable</h4>
           <p class="mb-0">
-                    Your portal account is not linked
-                    to an employee profile.
-                    Please contact HR.
+                    Your portal account must be linked to exactly one active employee profile. Please contact HR.
                 </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ class HrRequestPortal(http.Controller):
 
     def _get_portal_employee(self):
         return request.env['hr.request']._get_employee_for_user(
-            request.env.user
+            request.env.user, strict=False
         )
 
     def _get_managed_employees(self):
