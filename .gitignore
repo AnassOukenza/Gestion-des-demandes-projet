@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local environments and editor settings
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local configuration, logs and database exports
+.env
+.env.*
+!.env.example
+odoo.conf
+*.log
+*.dump
+*.backup
+
+# Distribution archives
+*.zip

@@ -1,0 +1,1002 @@
+# Translation of Odoo Server.
+# French translation of Document Management (hr_requests).
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-17 00:00+0000\n"
+"PO-Revision-Date: 2026-09-17 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: hr_requests
+#: model:ir.module.module,shortdesc:base.module_hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_root
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_home_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_breadcrumbs_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_navigation
+msgid "Document Management"
+msgstr "Gestion des documents"
+
+#. module: hr_requests
+#: model:ir.module.module,summary:base.module_hr_requests
+msgid "Manage employee document requests and certificates"
+msgstr "Gérer les demandes de documents et les attestations des employés"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/controllers/portal.py:0
+msgid "No employee is assigned to you."
+msgstr "Aucun employÃ© ne vous est affectÃ©."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/controllers/portal.py:0
+msgid "The selected request type is not available."
+msgstr "Le type de demande sélectionné n’est pas disponible."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/controllers/portal.py:0
+msgid "Please select an employee assigned to you."
+msgstr "Veuillez sÃ©lectionner un employÃ© qui vous est affectÃ©."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/controllers/portal.py:0
+msgid "Please select a valid request type."
+msgstr "Veuillez sélectionner un type de demande valide."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/controllers/portal.py:0 code:addons/hr_requests/models/hr_request.py:0
+msgid "Please select a valid employee."
+msgstr "Veuillez sélectionner un employé valide."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#, python-format
+msgid "Validate HR Request %(value1)s"
+msgstr "Valider la demande RH %(value1)s"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#: model:ir.model,name:hr_requests.model_hr_request_sign_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_sign_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Upload Signed Document"
+msgstr "Déposer le document signé"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#: model:ir.model,name:hr_requests.model_hr_request_reject_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_reject_wizard
+msgid "Reject Request"
+msgstr "Rejeter la demande"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_breadcrumbs_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "New Request"
+msgstr "Nouvelle demande"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "You can only select yourself or an employee assigned to you."
+msgstr "Vous ne pouvez sélectionner que vous-même ou un employé qui vous est affecté."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "You can only select yourself as requester."
+msgstr "Vous ne pouvez sélectionner que vous-même comme demandeur."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "These fields can only be changed by workflow actions."
+msgstr "Ces champs ne peuvent être modifiés que par les actions du circuit de validation."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "No manager is configured for this employee's company."
+msgstr "Aucun gestionnaire habilité n’est configuré pour la société de cet employé."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Only a manager of this company can process this request, excluding their own requests."
+msgstr ""
+"Seul un gestionnaire de cette société peut traiter cette demande, à l’exception de ses propres "
+"demandes."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Only a draft request can be submitted."
+msgstr "Seule une demande à l’état brouillon peut être soumise."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "No document template is configured for this request type."
+msgstr "Aucun modèle de document n’est configuré pour ce type de demande."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#, python-format
+msgid ""
+"No active manager has access to %(company)s. Check the processing group and the allowed companies "
+"of the manager."
+msgstr ""
+"Aucun gestionnaire actif n’est habilité pour %(company)s. Vérifiez son groupe de traitement et ses"
+" sociétés autorisées."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Only a submitted request can be downloaded for signature."
+msgstr "Seule une demande soumise peut être téléchargée pour signature."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#: code:addons/hr_requests/wizard/hr_request_sign_wizard.py:0
+msgid "Only a submitted request can receive a signed document."
+msgstr "Seule une demande soumise peut recevoir un document signé."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Only a submitted request can be rejected."
+msgstr "Seule une demande soumise peut être rejetée."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Please enter a rejection reason."
+msgstr "Veuillez saisir un motif de rejet."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Upload the signed PDF before completing the request."
+msgstr "Déposez le PDF signé avant de terminer la demande."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "No generated document is available."
+msgstr "Aucun document généré n’est disponible."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Please reload the form and try again."
+msgstr "Veuillez recharger le formulaire et réessayer."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "You can only create requests for yourself."
+msgstr "Vous ne pouvez créer des demandes que pour vous-même."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#, python-format
+msgid "The request %(value1)s is waiting for your validation."
+msgstr "La demande %(value1)s est en attente de votre validation."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+#, python-format
+msgid ""
+"No other manager can process this request for %(company)s. A manager cannot process a request they"
+" created or benefit from. Assign another active manager with access to this company."
+msgstr ""
+"Aucun autre gestionnaire ne peut traiter cette demande pour %(company)s. Un gestionnaire ne peut "
+"pas traiter une demande qu’il a créée ou dont il est le bénéficiaire. Affectez un autre "
+"gestionnaire actif autorisé pour cette société."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "No employee record is linked to your user account."
+msgstr "Aucune fiche employé n’est liée à votre compte utilisateur."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/hr_request.py:0
+msgid "Request information can only be changed in Draft."
+msgstr "Les informations d’une demande ne peuvent être modifiées qu’à l’état brouillon."
+
+#. module: hr_requests
+#: model:ir.model,name:hr_requests.model_hr_request
+msgid "HR Requests"
+msgstr "Demandes RH"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__name
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_reject_wizard__request_id
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "Reference"
+msgstr "Référence"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__request_type_id
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_list_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_form_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Request Type"
+msgstr "Type de demande"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__can_manage
+msgid "Can Manage"
+msgstr "Peut gérer"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__state
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "Status"
+msgstr "Statut"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request__state__draft
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request__state__submitted
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Submitted"
+msgstr "Soumise"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request__state__signed
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Signed"
+msgstr "Signée"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request__state__done
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Done"
+msgstr "Terminée"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request__state__rejected
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Rejected"
+msgstr "Rejetée"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__signed_document_id
+msgid "Signed Document"
+msgstr "Document signé"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__signed_date
+msgid "Signed On"
+msgstr "Signée le"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__signed_by_id
+msgid "Signature Confirmed By"
+msgstr "Signature confirmée par"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__rejection_reason
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_reject_wizard__reason_code
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Rejection Reason"
+msgstr "Motif du rejet"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__rejected_by_id
+msgid "Rejected By"
+msgstr "Rejetée par"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__rejected_date
+msgid "Rejected On"
+msgstr "Rejetée le"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__requester_employee_id
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Requester"
+msgstr "Demandeur"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__company_id
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Company"
+msgstr "Société"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__department_id
+msgid "Department"
+msgstr "Département"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__submitted_date
+msgid "Submitted on"
+msgstr "Soumise le"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__description
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Description"
+msgstr "Description"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__generated_document_id
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Generated Document"
+msgstr "Document généré"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request__generated_date
+msgid "Generated On"
+msgstr "Généré le"
+
+#. module: hr_requests
+#: model:ir.model,name:hr_requests.model_hr_request_type
+msgid "HR Request Type"
+msgstr "Type de demande RH"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_type__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_type__code
+msgid "Code"
+msgstr "Code"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_type__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_type__active
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_list_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_form_view
+msgid "Active"
+msgstr "Actif"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/res_users.py:0
+msgid ""
+"Some employees are assigned to multiple HR assistants. Remove duplicate assignments before "
+"upgrading."
+msgstr ""
+"Certains employés sont affectés à plusieurs assistants RH. Supprimez les doubles affectations "
+"avant de mettre à niveau le module."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/res_users.py:0
+msgid "Only request administrators can change employee assignments."
+msgstr "Seuls les administrateurs des demandes peuvent modifier les affectations des employés."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/res_users.py:0
+msgid "Select only one document management group: Metraco or Others."
+msgstr "Sélectionnez un seul groupe de gestion des demandes : Metraco ou Autres."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/res_users.py:0
+msgid "Employees can only be assigned to an HR Assistance account."
+msgstr "Les employés ne peuvent être affectés qu’à un compte Assistance RH."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/models/res_users.py:0
+#: code:addons/hr_requests/wizard/hr_assistance_assignment.py:0
+msgid "An employee is already assigned to another HR assistant."
+msgstr "Un employé est déjà affecté à un autre assistant RH."
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_res_users__managed_employee_ids
+#: model:ir.model.fields,field_description:hr_requests.field_hr_assistance_assignment__employee_ids
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_users_form_hr_assistance
+msgid "Managed Employees"
+msgstr "Employés gérés"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_res_users__available_managed_employee_ids
+#: model:ir.model.fields,field_description:hr_requests.field_hr_assistance_assignment__available_employee_ids
+msgid "Available Employees"
+msgstr "Employés disponibles"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_assistance_assignment.py:0
+msgid "Please select an HR Assistance account."
+msgstr "Veuillez sélectionner un compte Assistance RH."
+
+#. module: hr_requests
+#: model:ir.model,name:hr_requests.model_hr_assistance_assignment
+msgid "HR Assistance Employee Assignment"
+msgstr "Affectation des employés à l’assistance RH"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_assistance_assignment__assistant_id
+msgid "HR Assistant"
+msgstr "Assistant RH"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_reject_wizard.py:0
+msgid "Please specify the rejection reason."
+msgstr "Veuillez préciser le motif du rejet."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_reject_wizard.py:0
+msgid "Please select a rejection reason."
+msgstr "Veuillez sélectionner un motif de rejet."
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__missing_information
+msgid "Informations manquantes"
+msgstr "Informations manquantes"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__incorrect_information
+msgid "Informations incorrectes"
+msgstr "Informations incorrectes"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__wrong_type
+msgid "Type de demande incorrect"
+msgstr "Type de demande incorrect"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__duplicate
+msgid "Demande en double"
+msgstr "Demande en double"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__not_eligible
+msgid "Demande non éligible"
+msgstr "Demande non éligible"
+
+#. module: hr_requests
+#: model:ir.model.fields.selection,name:hr_requests.selection__hr_request_reject_wizard__reason_code__other
+msgid "Autre"
+msgstr "Autre"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_reject_wizard__reason
+msgid "Specify the reason"
+msgstr "Précisez le motif"
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_sign_wizard.py:0
+msgid "Signed document uploaded."
+msgstr "Document signé déposé."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_sign_wizard.py:0
+msgid "The signed PDF must not exceed 20 MB."
+msgstr "Le PDF signé ne doit pas dépasser 20 Mo."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_sign_wizard.py:0
+msgid "Please upload a valid PDF document."
+msgstr "Veuillez déposer un document PDF valide."
+
+#. module: hr_requests
+#. odoo-python
+#: code:addons/hr_requests/wizard/hr_request_sign_wizard.py:0
+msgid "Please upload a valid, unencrypted PDF document."
+msgstr "Veuillez déposer un document PDF valide et non chiffré."
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_sign_wizard__document
+msgid "Signed PDF"
+msgstr "PDF signé"
+
+#. module: hr_requests
+#: model:ir.model.fields,field_description:hr_requests.field_hr_request_sign_wizard__filename
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#. module: hr_requests
+#: model:ir.actions.report,name:hr_requests.action_report_work_certificate
+msgid "Work Certificate"
+msgstr "Attestation de travail"
+
+#. module: hr_requests
+#: model:ir.actions.report,name:hr_requests.action_report_salary_certificate
+msgid "Salary Certificate"
+msgstr "Attestation de salaire"
+
+#. module: hr_requests
+#: model:ir.actions.report,name:hr_requests.action_report_credit_request
+msgid "Credit Request"
+msgstr "Demande de crédit"
+
+#. module: hr_requests
+#: model:res.groups,name:hr_requests.group_hr_request_hr_assistance
+msgid "HR Assistance"
+msgstr "Assistance RH"
+
+#. module: hr_requests
+#: model:res.groups,name:hr_requests.group_hr_request_administration
+msgid "Administration des demandes"
+msgstr "Administration des demandes"
+
+#. module: hr_requests
+#: model:res.groups,name:hr_requests.group_hr_request_metraco
+msgid "Gestion des demandes — Metraco"
+msgstr "Gestion des demandes — Metraco"
+
+#. module: hr_requests
+#: model:res.groups,name:hr_requests.group_hr_request_daiko_damos
+msgid "Gestion des demandes — Autres"
+msgstr "Gestion des demandes — Autres"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_assistance_assignment
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_assistance_assignment_form
+#: model:ir.actions.act_window,name:hr_requests.action_hr_assistance_assignment
+msgid "Assign Employees"
+msgstr "Affecter les employés"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_assistance_assignment_form
+msgid "Save"
+msgstr "Enregistrer"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_assistance_assignment_form
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_reject_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_sign_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_my_requests
+#: model:ir.actions.act_window,name:hr_requests.action_hr_request_my
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_list_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_navigation
+msgid "My Requests"
+msgstr "Mes demandes"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_manage
+#: model:ir.actions.act_window,name:hr_requests.action_hr_request_manage
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_list_view
+msgid "Manage Requests"
+msgstr "Gérer les demandes"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_all
+#: model:ir.actions.act_window,name:hr_requests.action_hr_request_all
+msgid "All Requests"
+msgstr "Toutes les demandes"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: hr_requests
+#: model:ir.ui.menu,name:hr_requests.menu_hr_request_type
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_list_view
+#: model:ir.actions.act_window,name:hr_requests.action_hr_request_type
+msgid "Request Types"
+msgstr "Types de demandes"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_reject_wizard
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Reject"
+msgstr "Rejeter"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_sign_wizard
+msgid "Upload the manually signed PDF. Confirming will mark the request as Signed."
+msgstr "Déposez le PDF signé manuellement. La confirmation fera passer la demande à l’état Signée."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.view_hr_request_sign_wizard
+msgid "Confirm Signature"
+msgstr "Confirmer la signature"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_form_view
+msgid "Example: Work Certificate"
+msgstr "Exemple : Attestation de travail"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_form_view
+msgid "Display Order"
+msgstr "Ordre d’affichage"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_request_type_form_view
+msgid "General Information"
+msgstr "Informations générales"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_search_view
+msgid "Requests"
+msgstr "Demandes"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_list_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "Created On"
+msgstr "Date de création"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_kanban_view
+msgid "<span>Requester: </span>"
+msgstr "<span>Demandeur : </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_kanban_view
+msgid "<span>Company: </span>"
+msgstr "<span>Société :  </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_kanban_view
+msgid "<span>Type: </span>"
+msgstr "<span>Type : </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+msgid "<span>Created on: </span>"
+msgstr "<span>Créée le : </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_kanban_view
+msgid "<span>Submitted on: </span>"
+msgstr "<span>Soumise le : </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_my_kanban_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_manage_kanban_view
+msgid "<span>Status: </span>"
+msgstr "<span>Statut : </span>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Submit"
+msgstr "Soumettre"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Download for Signature"
+msgstr "Télécharger pour signature"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Complete"
+msgstr "Terminer"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Download Document"
+msgstr "Télécharger le document"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Request Information"
+msgstr "Informations sur la demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Status Information"
+msgstr "Informations sur le statut"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Describe your HR request..."
+msgstr "Décrivez votre demande RH…"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "Rejection Information"
+msgstr "Informations sur le rejet"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.hr_requests_form_view
+msgid "HR Request"
+msgstr "Demande RH"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_home_hr_requests
+msgid "Access your document requests and certificates"
+msgstr "Accédez à vos demandes de documents et à vos attestations"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_navigation
+msgid "Employee Requests"
+msgstr "Demandes des employés"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "View and follow requests for your managed employees."
+msgstr "Consultez et suivez les demandes des employés que vous gérez."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "View and follow your requests."
+msgstr "Consultez et suivez vos demandes."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid ""
+"<i class=\"fa fa-plus me-1\"/>\n"
+"                    New Request"
+msgstr ""
+"<i class=\"fa fa-plus me-1\"/>\n"
+"                    Nouvelle demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "Employee"
+msgstr "Employé"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "Submitted On"
+msgstr "Soumise le"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "-"
+msgstr "-"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "No requests were found for your managed employees."
+msgstr "Aucune demande n’a été trouvée pour les employés que vous gérez."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_my_hr_requests
+msgid "You don't have any requests yet."
+msgstr "Vous n’avez pas encore de demande."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Create and submit a new request."
+msgstr "Créez et soumettez une nouvelle demande."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Select an employee"
+msgstr "Sélectionnez un employé"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "The requester is automatically linked to your portal account."
+msgstr "Le demandeur est automatiquement associé à votre compte portail."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Select a request type"
+msgstr "Sélectionnez un type de demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid "Add any useful information..."
+msgstr "Ajoutez toute information utile…"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_new_hr_request
+msgid ""
+"<i class=\"fa fa-paper-plane me-1\"/>\n"
+"\n"
+"                                Submit Request"
+msgstr ""
+"<i class=\"fa fa-paper-plane me-1\"/>\n"
+"\n"
+"                                Soumettre la demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Request Details"
+msgstr "Détails de la demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<i class=\"fa fa-arrow-left me-1\"/>\n"
+"\n"
+"                    Back"
+msgstr ""
+"<i class=\"fa fa-arrow-left me-1\"/>\n"
+"\n"
+"                    Retour"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Requester\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Demandeur\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Department\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Département\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Request Type\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Type de demande\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Created On\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Date de création\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Submitted On\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Soumise le\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<strong>\n"
+"                                    Status\n"
+"                                </strong>\n"
+"                <br/>"
+msgstr ""
+"<strong>\n"
+"                                    Statut\n"
+"                                </strong>\n"
+"                <br/>"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "Draft Request"
+msgstr "Demande à l’état brouillon"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid "This request has not been submitted yet."
+msgstr "Cette demande n’a pas encore été soumise."
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<i class=\"fa fa-paper-plane me-1\"/>\n"
+"\n"
+"                            Submit Request"
+msgstr ""
+"<i class=\"fa fa-paper-plane me-1\"/>\n"
+"\n"
+"                            Soumettre la demande"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_detail
+msgid ""
+"<i class=\"fa fa-download me-1\"/>\n"
+"\n"
+"                            Download Document"
+msgstr ""
+"<i class=\"fa fa-download me-1\"/>\n"
+"\n"
+"                            Télécharger le document"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_no_employee
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"\n"
+"                    Employee profile not found"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"\n"
+"                    Fiche employé introuvable"
+
+#. module: hr_requests
+#: model_terms:ir.ui.view,arch_db:hr_requests.portal_hr_request_no_employee
+msgid ""
+"Your portal account is not linked\n"
+"                    to an employee profile.\n"
+"                    Please contact HR."
+msgstr "Votre compte portail n’est lié à aucune fiche employé. Veuillez contacter le service RH."

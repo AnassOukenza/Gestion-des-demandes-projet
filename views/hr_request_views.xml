@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="hr_requests_search_view" model="ir.ui.view">
+    <field name="name">hr.request.search</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <search string="Requests">
+        <field name="name"/>
+        <field name="requester_employee_id"/>
+        <field name="company_id"/>
+        <field name="request_type_id"/>
+        <field name="state"/>
+        <filter name="state_draft" string="Draft" domain="[('state', '=', 'draft') ]"/>
+        <filter name="state_submitted" string="Submitted" domain="[('state', '=', 'submitted') ]"/>
+        <filter name="state_signed" string="Signed" domain="[('state', '=', 'signed') ]"/>
+        <filter name="state_done" string="Done" domain="[('state', '=', 'done') ]"/>
+        <filter name="state_rejected" string="Rejected" domain="[('state', '=', 'rejected') ]"/>
+        <separator/>
+        <group expand="0" string="Group By">
+          <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+          <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+          <filter name="group_request_type" string="Request Type" context="{'group_by': 'request_type_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <record id="hr_requests_my_list_view" model="ir.ui.view">
+    <field name="name">hr.request.my.list</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <list string="My Requests" default_order="create_date desc, id desc">
+        <field name="name" decoration-bf="1"/>
+        <field name="company_id" optional="show"/>
+        <field name="request_type_id"/>
+        <field name="create_date" string="Created On" optional="show"/>
+        <field name="submitted_date" optional="show"/>
+        <field name="state" widget="badge" decoration-muted="state == 'draft'" decoration-info="state == 'submitted'" decoration-success="state == 'done'" decoration-danger="state == 'rejected'" decoration-primary="state == 'signed'"/>
+      </list>
+    </field>
+  </record>
+  <record id="hr_requests_manage_list_view" model="ir.ui.view">
+    <field name="name">hr.request.manage.list</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <list string="Manage Requests" default_order="create_date desc, id desc">
+        <field name="name" decoration-bf="1"/>
+        <field name="requester_employee_id"/>
+        <field name="company_id" optional="show"/>
+        <field name="request_type_id"/>
+        <field name="submitted_date" optional="show"/>
+        <field name="state" widget="badge" decoration-muted="state == 'draft'" decoration-info="state == 'submitted'" decoration-success="state == 'done'" decoration-danger="state == 'rejected'" decoration-primary="state == 'signed'"/>
+      </list>
+    </field>
+  </record>
+  <record id="hr_requests_my_kanban_view" model="ir.ui.view">
+    <field name="name">hr.request.my.kanban</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <kanban>
+        <field name="name"/>
+        <field name="requester_employee_id"/>
+        <field name="company_id"/>
+        <field name="request_type_id"/>
+        <field name="state"/>
+        <field name="create_date" string="Created On"/>
+        <field name="submitted_date"/>
+        <templates>
+          <t t-name="card">
+            <div class="oe_kanban_global_click p-2">
+              <div class="mb-2 fs-5 text-break">
+                <strong>
+                  <field name="name"/>
+                </strong>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Requester: </span>
+                <field name="requester_employee_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Company: </span>
+                <field name="company_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Type: </span>
+                <field name="request_type_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Created on: </span>
+                <field name="create_date" string="Created On"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Submitted on: </span>
+                <field name="submitted_date"/>
+              </div>
+              <div class="border-top pt-2 mt-3">
+                <span class="text-muted">Status: </span>
+                <field name="state" widget="badge" decoration-muted="state == 'draft'" decoration-info="state == 'submitted'" decoration-success="state == 'done'" decoration-danger="state == 'rejected'" decoration-primary="state == 'signed'"/>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <record id="hr_requests_manage_kanban_view" model="ir.ui.view">
+    <field name="name">hr.request.manage.kanban</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="state" records_draggable="false" groups_draggable="false">
+        <field name="name"/>
+        <field name="requester_employee_id"/>
+        <field name="company_id"/>
+        <field name="request_type_id"/>
+        <field name="state"/>
+        <field name="submitted_date"/>
+        <templates>
+          <t t-name="card">
+            <div class="oe_kanban_global_click p-2">
+              <div class="mb-2 fs-5 text-break">
+                <strong>
+                  <field name="name"/>
+                </strong>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Requester: </span>
+                <field name="requester_employee_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Company: </span>
+                <field name="company_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Type: </span>
+                <field name="request_type_id"/>
+              </div>
+              <div class="mb-2">
+                <span class="text-muted">Submitted on: </span>
+                <field name="submitted_date"/>
+              </div>
+              <div class="border-top pt-2 mt-3">
+                <span class="text-muted">Status: </span>
+                <field name="state" widget="badge" decoration-muted="state == 'draft'" decoration-info="state == 'submitted'" decoration-success="state == 'done'" decoration-danger="state == 'rejected'" decoration-primary="state == 'signed'"/>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  <record id="hr_requests_form_view" model="ir.ui.view">
+    <field name="name">hr.request.form</field>
+    <field name="model">hr.request</field>
+    <field name="arch" type="xml">
+      <form string="HR Request" class="o_hr_request_backend">
+        <field name="can_manage" invisible="1"/>
+        <header>
+          <button name="action_submit" type="object" string="Submit" invisible="state != 'draft'" class="btn-primary" icon="fa-paper-plane"/>
+          <button name="action_download_to_sign" type="object" string="Download for Signature" invisible="state != 'submitted' or not can_manage" class="btn-secondary" icon="fa-download"/>
+          <button name="action_upload_signed" type="object" string="Upload Signed Document" invisible="state != 'submitted' or not can_manage" class="btn-primary" icon="fa-upload"/>
+          <button name="action_reject" type="object" string="Reject" invisible="state != 'submitted' or not can_manage" class="btn-outline-danger" icon="fa-times"/>
+          <button name="action_done" type="object" string="Complete" invisible="state != 'signed' or not can_manage" class="btn-outline-success" icon="fa-check"/>
+          <button name="action_download_document" type="object" string="Download Document" invisible="state not in ['signed', 'done']" class="btn-primary" icon="fa-download"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,submitted,signed,done,rejected" readonly="1"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <label for="name"/>
+            <h1>
+              <field name="name"/>
+            </h1>
+          </div>
+          <group>
+            <group string="Request Information">
+              <field name="requester_employee_id" readonly="1"/>
+              <field name="company_id" readonly="1" options="{'no_open': True}"/>
+              <field name="department_id" readonly="1"/>
+              <field name="request_type_id" readonly="state != 'draft'" options="{'no_create': True, 'no_create_edit': True}"/>
+            </group>
+            <group string="Status Information">
+              <field name="create_date" string="Created On" readonly="1"/>
+              <field name="submitted_date" readonly="1"/>
+              <field name="state" widget="badge" readonly="1" decoration-muted="state == 'draft'" decoration-info="state == 'submitted'" decoration-success="state == 'done'" decoration-danger="state == 'rejected'" decoration-primary="state == 'signed'"/>
+              <field name="signed_date" invisible="state not in ['signed', 'done']"/>
+              <field name="signed_by_id" invisible="state not in ['signed', 'done']"/>
+            </group>
+          </group>
+          <group string="Description" class="mt-3">
+            <field name="description" placeholder="Describe your HR request..." nolabel="1" readonly="state != 'draft'"/>
+          </group>
+          <group string="Rejection Information" invisible="state != 'rejected'" class="mt-3">
+            <field name="rejection_reason"/>
+            <field name="rejected_by_id"/>
+            <field name="rejected_date"/>
+          </group>
+        </sheet>
+        <chatter/>
+      </form>
+    </field>
+  </record>
+</odoo>

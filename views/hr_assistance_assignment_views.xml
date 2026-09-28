@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="hr_assistance_assignment_form" model="ir.ui.view">
+    <field name="name">hr.assistance.assignment.form</field>
+    <field name="model">hr.assistance.assignment</field>
+    <field name="arch" type="xml">
+      <form string="Assign Employees">
+        <group>
+          <field name="assistant_id" domain="[('groups_id', 'in', [%(hr_requests.group_hr_request_hr_assistance)d])]" options="{'no_create': True, 'no_open': True}"/>
+          <field name="available_employee_ids" invisible="1"/>
+          <field name="employee_ids" widget="many2many_tags" readonly="not assistant_id" domain="[('id', 'in', available_employee_ids)]" options="{'no_create': True, 'no_create_edit': True}"/>
+        </group>
+        <footer>
+          <button name="action_save" type="object" string="Save" class="btn-primary"/>
+          <button string="Cancel" special="cancel" class="btn-secondary"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+  <record id="action_hr_assistance_assignment" model="ir.actions.act_window">
+    <field name="name">Assign Employees</field>
+    <field name="res_model">hr.assistance.assignment</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+  <menuitem id="menu_hr_assistance_assignment" name="Assign Employees" parent="menu_hr_request_configuration" action="action_hr_assistance_assignment" groups="hr_requests.group_hr_request_administration,base.group_system" sequence="20"/>
+</odoo>

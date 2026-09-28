@@ -1,0 +1,51 @@
+/* Small, scoped adjustments; layout and controls use Odoo/Bootstrap. */
+.o_hr_requests .o_hr_request_form {
+    max-width: 52rem;
+}
+
+.o_hr_requests .card {
+    border-radius: .5rem;
+}
+
+.o_hr_requests .o_hr_request_table th,
+.o_hr_requests .o_hr_request_table td {
+    padding: .875rem 1rem;
+    vertical-align: middle;
+}
+
+.o_hr_requests .o_hr_request_table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.o_hr_requests .badge {
+    padding: .4em .7em;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.o_hr_requests .o_hr_state_signed {
+    color: #593d70;
+    background-color: #eee7f4;
+}
+
+.o_hr_requests .o_hr_request_text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.o_hr_requests .btn,
+.o_hr_requests .nav-link {
+    min-height: 2.5rem;
+}
+
+@media (max-width: 575.98px) {
+    .o_hr_requests .o_hr_request_actions > .btn {
+        flex: 1 1 100%;
+    }
+
+    .o_hr_requests .o_hr_request_table th,
+    .o_hr_requests .o_hr_request_table td {
+        padding: .75rem;
+    }
+}

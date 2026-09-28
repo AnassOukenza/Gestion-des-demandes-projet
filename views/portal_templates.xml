@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <!-- Présentation uniquement : les contrôleurs et les modèles valident les accès et les formulaires. Conserver les jetons CSRF et de soumission. -->
+  <template id="portal_my_home_hr_requests" name="Document Management Portal Home" inherit_id="portal.portal_my_home" priority="40">
+    <xpath expr="//div[@id='portal_common_category']" position="inside">
+      <t t-if="request.env.user.has_group('base.group_portal')" t-call="portal.portal_docs_entry">
+        <t t-set="title">
+                    Document Management
+                </t>
+        <t t-set="text">
+                    Access your document requests and certificates
+                </t>
+        <t t-set="url" t-value="'/my/hr-requests'"/>
+        <t t-set="config_card" t-value="True"/>
+      </t>
+    </xpath>
+  </template>
+  <template id="portal_breadcrumbs_hr_requests" name="Document Management Breadcrumbs" inherit_id="portal.portal_breadcrumbs" priority="40">
+    <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+      <li t-if="page_name in ('hr_requests', 'hr_request_new', 'hr_request_detail')" class="breadcrumb-item">
+        <a t-if="page_name != 'hr_requests'" t-att-href="portal_list_url">
+                    Document Management
+                </a>
+        <span t-else="">
+                    Document Management
+                </span>
+      </li>
+      <li t-if="page_name == 'hr_request_new'" class="breadcrumb-item active">
+                New Request
+            </li>
+      <li t-if="page_name == 'hr_request_detail'" class="breadcrumb-item active">
+        <t t-esc="hr_request.name"/>
+      </li>
+    </xpath>
+  </template>
+  <template id="portal_my_hr_requests" name="Document Management Requests">
+    <t t-call="portal.portal_layout">
+      <div class="o_hr_requests py-2 py-md-3">
+        <t t-call="hr_requests.portal_hr_request_navigation"/>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+          <div>
+            <h2 class="mb-1 h3 text-break">
+              <t t-if="managed_page">Employee Requests</t>
+              <t t-else="">My Requests</t>
+            </h2>
+            <p class="text-muted mb-0">
+              <t t-if="managed_page">
+                            View and follow requests for your managed employees.
+                        </t>
+              <t t-else="">
+                            View and follow your requests.
+                        </t>
+            </p>
+          </div>
+          <a t-att-href="portal_new_url" class="btn btn-primary"><i class="fa fa-plus me-1" aria-hidden="true"/>
+                    New Request
+                </a>
+        </div>
+        <t t-if="hr_requests">
+          <t t-call="portal.portal_table">
+            <t t-set="classes" t-value="'o_hr_request_table border rounded'"/>
+            <thead>
+              <tr>
+                <th scope="col">
+                                Reference
+                            </th>
+                <th t-if="managed_page" scope="col">
+                                Employee
+                            </th>
+                <th scope="col">
+                                Request Type
+                            </th>
+                <th scope="col">
+                                Created On
+                            </th>
+                <th scope="col">
+                                Submitted On
+                            </th>
+                <th scope="col">
+                                Status
+                            </th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-foreach="hr_requests" t-as="hr_request">
+                <tr>
+                  <td>
+                    <a t-att-href="'/my/hr-requests/%s' % hr_request.id" class="fw-semibold text-decoration-none">
+                      <t t-esc="hr_request.name"/>
+                    </a>
+                  </td>
+                  <td t-if="managed_page">
+                    <t t-esc="hr_request.requester_employee_id.name"/>
+                  </td>
+                  <td>
+                    <t t-esc="hr_request.request_type_id.name"/>
+                  </td>
+                  <td class="text-nowrap text-muted">
+                    <span t-field="hr_request.create_date"/>
+                  </td>
+                  <td class="text-nowrap text-muted">
+                    <span t-if="hr_request.submitted_date" t-field="hr_request.submitted_date"/>
+                    <span t-else="" class="text-muted">
+                                        -
+                                    </span>
+                  </td>
+                  <td class="text-nowrap">
+                    <span t-if="hr_request.state == 'draft'" class="badge text-bg-secondary rounded-pill">
+                                        Draft
+                                    </span>
+                    <span t-elif="hr_request.state == 'submitted'" class="badge rounded-pill text-bg-primary">
+                                        Submitted
+                                    </span>
+                    <span t-elif="hr_request.state == 'signed'" class="badge rounded-pill o_hr_state_signed">Signed</span>
+                    <span t-elif="hr_request.state == 'done'" class="badge text-bg-success rounded-pill">
+                                        Done
+                                    </span>
+                    <span t-elif="hr_request.state == 'rejected'" class="badge text-bg-danger rounded-pill">Rejected</span>
+                  </td>
+                </tr>
+              </t>
+            </tbody>
+          </t>
+        </t>
+        <div t-else="" class="alert alert-light border p-4 text-center" role="status">
+          <i class="fa fa-info-circle me-1" aria-hidden="true"/>
+          <t t-if="managed_page">
+                    No requests were found for your managed employees.
+                </t>
+          <t t-else="">
+                    You don't have any requests yet.
+                </t>
+        </div>
+      </div>
+    </t>
+  </template>
+  <template id="portal_new_hr_request" name="New Request">
+    <t t-call="portal.portal_layout">
+      <div class="o_hr_requests py-2 py-md-3">
+        <t t-call="hr_requests.portal_hr_request_navigation"/>
+        <div class="mb-4">
+          <h2 class="mb-1 h3 text-break">
+                    New Request
+                </h2>
+          <p class="text-muted mb-0">
+                    Create and submit a new request.
+                </p>
+        </div>
+        <div t-if="error" class="alert alert-danger" role="alert">
+          <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>
+          <t t-esc="error"/>
+        </div>
+        <div class="card shadow-sm border o_hr_request_form">
+          <div class="card-body p-3 p-md-4">
+            <form t-att-action="portal_new_url" method="post">
+              <input type="hidden" name="submission_token" t-att-value="submission_token"/>
+              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+              <div class="mb-4">
+                <label class="form-label fw-semibold" for="requester_employee_id">
+                                Requester
+                            </label>
+                <select t-if="managed_page" name="requester_employee_id" class="form-select" required="required" id="requester_employee_id" aria-required="true">
+                  <option value="" disabled="disabled" t-att-selected="not selected_requester_employee_id">
+                                    Select an employee
+                                </option>
+                  <t t-foreach="managed_employees" t-as="managed_employee">
+                    <option t-att-value="managed_employee.id" t-att-selected="managed_employee.id == selected_requester_employee_id">
+                      <t t-esc="managed_employee.name"/>
+                    </option>
+                  </t>
+                </select>
+                <input t-else="" type="text" class="form-control" t-att-value="employee.name" readonly="readonly" id="requester_employee_id"/>
+                <div t-if="not managed_page" class="form-text">
+                                The requester is automatically linked to your portal account.
+                            </div>
+              </div>
+              <div class="mb-4">
+                <label for="request_type_id" class="form-label fw-semibold">
+                                Request Type
+                            </label>
+                <select id="request_type_id" name="request_type_id" class="form-select" required="required" aria-required="true">
+                  <option value="" disabled="disabled" t-att-selected="not selected_request_type_id">
+                                    Select a request type
+                                </option>
+                  <t t-foreach="request_types" t-as="request_type">
+                    <option t-att-value="request_type.id" t-att-selected="request_type.id == selected_request_type_id">
+                      <t t-esc="request_type.name"/>
+                    </option>
+                  </t>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="description" class="form-label fw-semibold">
+                                Description
+                            </label>
+                <textarea id="description" name="description" class="form-control" rows="5" placeholder="Add any useful information..." t-out="description"/>
+              </div>
+              <div class="d-flex gap-2 flex-wrap border-top pt-3 o_hr_request_actions">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane me-1" aria-hidden="true"/>
+
+                                Submit Request
+                            </button>
+                <a t-att-href="portal_list_url" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+  <template id="portal_hr_request_detail" name="Request Detail">
+    <t t-call="portal.portal_layout">
+      <div class="o_hr_requests py-2 py-md-3">
+        <t t-call="hr_requests.portal_hr_request_navigation"/>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+          <div>
+            <h2 class="mb-1 h3 text-break">
+              <t t-esc="hr_request.name"/>
+            </h2>
+            <p class="text-muted mb-0">
+                        Request Details
+                    </p>
+          </div>
+          <a t-att-href="portal_list_url" class="btn btn-outline-secondary"><i class="fa fa-arrow-left me-1" aria-hidden="true"/>
+
+                    Back
+                </a>
+        </div>
+        <div t-if="error" class="alert alert-danger" role="alert">
+          <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>
+          <t t-esc="error"/>
+        </div>
+        <div class="card shadow-sm border mb-4">
+          <div class="card-body p-3 p-md-4">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <h3 class="border-bottom pb-2 mb-3 h6 fw-bold">
+                                Request Information
+                            </h3>
+                <p>
+                  <strong>
+                                    Requester
+                                </strong>
+                  <br/>
+                  <t t-esc="employee.name"/>
+                </p>
+                <p>
+                  <strong>
+                                    Department
+                                </strong>
+                  <br/>
+                  <t t-esc="department_name"/>
+                </p>
+                <p class="mb-0">
+                  <strong>
+                                    Request Type
+                                </strong>
+                  <br/>
+                  <t t-esc="hr_request.request_type_id.name"/>
+                </p>
+              </div>
+              <div class="col-md-6">
+                <h3 class="border-bottom pb-2 mb-3 h6 fw-bold">
+                                Status Information
+                            </h3>
+                <p>
+                  <strong>
+                                    Created On
+                                </strong>
+                  <br/>
+                  <span t-field="hr_request.create_date"/>
+                </p>
+                <p>
+                  <strong>
+                                    Submitted On
+                                </strong>
+                  <br/>
+                  <span t-if="hr_request.submitted_date" t-field="hr_request.submitted_date"/>
+                  <span t-else="" class="text-muted">
+                                    -
+                                </span>
+                </p>
+                <p class="mb-0">
+                  <strong>
+                                    Status
+                                </strong>
+                  <br/>
+                  <span t-if="hr_request.state == 'draft'" class="badge text-bg-secondary rounded-pill">
+                                    Draft
+                                </span>
+                  <span t-elif="hr_request.state == 'submitted'" class="badge rounded-pill text-bg-primary">
+                                    Submitted
+                                </span>
+                  <span t-elif="hr_request.state == 'signed'" class="badge rounded-pill o_hr_state_signed">Signed</span>
+                  <span t-elif="hr_request.state == 'done'" class="badge text-bg-success rounded-pill">
+                                    Done
+                                </span>
+                  <span t-elif="hr_request.state == 'rejected'" class="badge text-bg-danger rounded-pill">Rejected</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div t-if="hr_request.state == 'draft'" class="card shadow-sm border mb-4">
+          <div class="card-body p-3 p-md-4">
+            <h3 class="mb-3 h6 fw-bold">
+                        Draft Request
+                    </h3>
+            <p class="text-muted">
+                        This request has not been submitted yet.
+                    </p>
+            <form t-att-action="'/my/hr-requests/%s/submit' % hr_request.id" method="post">
+              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+              <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane me-1" aria-hidden="true"/>
+
+                            Submit Request
+                        </button>
+            </form>
+          </div>
+        </div>
+        <div t-if="hr_request.description" class="card shadow-sm border mb-4">
+          <div class="card-body p-3 p-md-4">
+            <h3 class="border-bottom pb-2 mb-3 h6 fw-bold">
+                        Description
+                    </h3>
+            <p class="mb-0 o_hr_request_text">
+              <t t-esc="hr_request.description"/>
+            </p>
+          </div>
+        </div>
+        <div t-if="attachment_name" class="card shadow-sm border">
+          <div class="card-body p-3 p-md-4">
+            <h3 class="border-bottom pb-2 mb-3 h6 fw-bold">
+                        Generated Document
+                    </h3>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <span class="text-break">
+                <i class="fa fa-file-pdf-o me-1" aria-hidden="true"/>
+                <t t-esc="attachment_name"/>
+              </span>
+              <a t-att-href="'/my/hr-requests/%s/download' % hr_request.id" class="btn btn-primary"><i class="fa fa-download me-1" aria-hidden="true"/>Download Document</a>
+            </div>
+          </div>
+        </div>
+        <div t-if="hr_request.state == 'rejected'" class="alert alert-danger mt-4" role="status">
+          <h5>Rejection Reason</h5>
+          <p t-esc="hr_request.rejection_reason" class="o_hr_request_text mb-0"/>
+        </div>
+      </div>
+    </t>
+  </template>
+  <template id="portal_hr_request_no_employee" name="HR Request No Employee">
+    <t t-call="portal.portal_layout">
+      <div class="o_hr_requests py-2 py-md-3">
+        <t t-call="hr_requests.portal_hr_request_navigation"/>
+        <div class="alert alert-warning" role="status">
+          <h4><i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Employee profile not found</h4>
+          <p class="mb-0">
+                    Your portal account is not linked
+                    to an employee profile.
+                    Please contact HR.
+                </p>
+        </div>
+      </div>
+    </t>
+  </template>
+  <template id="portal_hr_request_navigation" name="Document Management Navigation">
+    <nav t-if="request.env.user.has_group('hr_requests.group_hr_request_hr_assistance')" class="nav nav-pills gap-2 mb-4" aria-label="Document Management">
+      <a href="/my/hr-requests" t-att-class="'nav-link border active' if not (portal_list_url == '/my/hr-requests/employees' or '/employees' in request.httprequest.path) else 'nav-link border'" t-att-aria-current="'page' if not (portal_list_url == '/my/hr-requests/employees' or '/employees' in request.httprequest.path) else None">My Requests</a>
+      <a href="/my/hr-requests/employees" t-att-class="'nav-link border active' if portal_list_url == '/my/hr-requests/employees' or '/employees' in request.httprequest.path else 'nav-link border'" t-att-aria-current="'page' if portal_list_url == '/my/hr-requests/employees' or '/employees' in request.httprequest.path else None">Employee Requests</a>
+    </nav>
+  </template>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="view_users_form_hr_assistance" model="ir.ui.view">
+    <field name="name">res.users.form.hr.assistance</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="Managed Employees" groups="hr_requests.group_hr_request_administration,base.group_system">
+          <field name="available_managed_employee_ids" invisible="1"/>
+          <field name="managed_employee_ids" string="Managed Employees" widget="many2many_tags" domain="[('id', 'in', available_managed_employee_ids)]" options="{'no_create': True, 'no_create_edit': True}"/>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

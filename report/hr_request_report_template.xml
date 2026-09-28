@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <!-- Rapports appelés depuis le workflow. Les contrôles Python invoqués par les modèles de rapport protègent aussi les accès directs. -->
+<template id="report_work_certificate"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
+      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
+      <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
+ .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
+ .header {width:100%;border-collapse:collapse;border-bottom:3px solid #438ba9;margin-bottom:34px;}
+ .header td {vertical-align:middle;padding-bottom:18px;}
+ .logo {width:145px;height:auto;}
+ .company {text-align:right;color:#546977;font-size:10pt;}
+ .company strong {font-size:16pt;color:#16465b;}
+ .eyebrow {color:#438ba9;font-size:9pt;font-weight:bold;}
+ h1 {font-size:22pt;line-height:1.2;color:#16465b;margin:10px 0 22px;font-weight:bold;}
+ .meta {width:100%;border-collapse:collapse;background:#f0f5f8;margin-bottom:32px;font-size:10pt;}
+ .meta td {padding:12px 16px;width:50%;vertical-align:top;}
+ .label {font-size:8pt;color:#607987;}
+ .content {font-size:12pt;line-height:1.9;min-height:245px;}
+ .content p {margin:0 0 20px;}
+ .info {border-left:3px solid #438ba9;padding:10px 16px;background:#f6f9fb;margin:22px 0;}
+ .signature {margin-top:45px;width:100%;border-collapse:collapse;page-break-inside:avoid;}
+ .signature td {width:50%;vertical-align:top;font-size:11pt;}
+ .signature-space {height:85px;}
+ .hr-document-footer {border-top:1px solid #cddbe3;margin-top:26px;padding-top:12px;color:#687e8a;font-size:9pt;}
+</style>
+        <table class="header"><tr><td><img class="logo" t-att-src="request._report_logo_data_uri()" alt="Logo METRACO"/></td>
+          <td class="company"><strong t-esc="company.name"/><br/><span>Direction des ressources humaines</span>
+          <div t-if="company.street" t-esc="company.street"/><div t-if="company.city"><span t-esc="company.zip or ''"/> <span t-esc="company.city"/></div>
+          <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
+        <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>ATTESTATION DE TRAVAIL</h1>
+        <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
+        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, certifions que <strong t-field="request.requester_employee_id.name"/> fait partie des effectifs de notre société.</p>
+<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-field="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div></div>
+<p>La présente attestation est délivrée à la demande de l’intéressé(e), pour servir et valoir ce que de droit.</p></div>
+        <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>
+        <div class="hr-document-footer"><strong t-esc="company.name"/> · Service des ressources humaines<br/>Référence : <span t-esc="request.name"/></div>
+      </div></div></t></t></template>
+<template id="report_salary_certificate"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
+      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
+      <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
+ .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
+ .header {width:100%;border-collapse:collapse;border-bottom:3px solid #438ba9;margin-bottom:34px;}
+ .header td {vertical-align:middle;padding-bottom:18px;}
+ .logo {width:145px;height:auto;}
+ .company {text-align:right;color:#546977;font-size:10pt;}
+ .company strong {font-size:16pt;color:#16465b;}
+ .eyebrow {color:#438ba9;font-size:9pt;font-weight:bold;}
+ h1 {font-size:22pt;line-height:1.2;color:#16465b;margin:10px 0 22px;font-weight:bold;}
+ .meta {width:100%;border-collapse:collapse;background:#f0f5f8;margin-bottom:32px;font-size:10pt;}
+ .meta td {padding:12px 16px;width:50%;vertical-align:top;}
+ .label {font-size:8pt;color:#607987;}
+ .content {font-size:12pt;line-height:1.9;min-height:245px;}
+ .content p {margin:0 0 20px;}
+ .info {border-left:3px solid #438ba9;padding:10px 16px;background:#f6f9fb;margin:22px 0;}
+ .signature {margin-top:45px;width:100%;border-collapse:collapse;page-break-inside:avoid;}
+ .signature td {width:50%;vertical-align:top;font-size:11pt;}
+ .signature-space {height:85px;}
+ .hr-document-footer {border-top:1px solid #cddbe3;margin-top:26px;padding-top:12px;color:#687e8a;font-size:9pt;}
+</style>
+        <table class="header"><tr><td><img class="logo" t-att-src="request._report_logo_data_uri()" alt="Logo METRACO"/></td>
+          <td class="company"><strong t-esc="company.name"/><br/><span>Direction des ressources humaines</span>
+          <div t-if="company.street" t-esc="company.street"/><div t-if="company.city"><span t-esc="company.zip or ''"/> <span t-esc="company.city"/></div>
+          <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
+        <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>ATTESTATION DE SALAIRE</h1>
+        <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
+        <div class="content"><p>Nous soussignés, <strong t-esc="company.name"/>, attestons que <strong t-field="request.requester_employee_id.name"/> est employé(e) au sein de notre société.</p>
+<div class="info" t-if="request.requester_employee_id.job_id or request.department_id"><div t-if="request.requester_employee_id.job_id"><span class="label">FONCTION</span><br/><strong t-field="request.requester_employee_id.job_id.name"/></div><div t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div></div>
+<p>La présente attestation est établie à la demande de l’intéressé(e). Cette version ne comporte aucun montant de rémunération.</p></div>
+        <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>
+        <div class="hr-document-footer"><strong t-esc="company.name"/> · Service des ressources humaines<br/>Référence : <span t-esc="request.name"/></div>
+      </div></div></t></t></template>
+<template id="report_credit_request"><t t-call="web.html_container"><t t-foreach="docs" t-as="request">
+      <t t-set="access_checked" t-value="request._check_report_access()"/>
+      <t t-set="company" t-value="request.requester_employee_id.company_id or request.env.company"/>
+      <div class="article" data-oe-model="hr.request" t-att-data-oe-id="request.id"><div class="page" t-translation="off"><meta charset="utf-8"/><style>
+ .page {font-family:Arial,Helvetica,sans-serif;color:#243447;font-size:11pt;line-height:1.65;}
+ .header {width:100%;border-collapse:collapse;border-bottom:3px solid #438ba9;margin-bottom:34px;}
+ .header td {vertical-align:middle;padding-bottom:18px;}
+ .logo {width:145px;height:auto;}
+ .company {text-align:right;color:#546977;font-size:10pt;}
+ .company strong {font-size:16pt;color:#16465b;}
+ .eyebrow {color:#438ba9;font-size:9pt;font-weight:bold;}
+ h1 {font-size:22pt;line-height:1.2;color:#16465b;margin:10px 0 22px;font-weight:bold;}
+ .meta {width:100%;border-collapse:collapse;background:#f0f5f8;margin-bottom:32px;font-size:10pt;}
+ .meta td {padding:12px 16px;width:50%;vertical-align:top;}
+ .label {font-size:8pt;color:#607987;}
+ .content {font-size:12pt;line-height:1.9;min-height:245px;}
+ .content p {margin:0 0 20px;}
+ .info {border-left:3px solid #438ba9;padding:10px 16px;background:#f6f9fb;margin:22px 0;}
+ .signature {margin-top:45px;width:100%;border-collapse:collapse;page-break-inside:avoid;}
+ .signature td {width:50%;vertical-align:top;font-size:11pt;}
+ .signature-space {height:85px;}
+ .hr-document-footer {border-top:1px solid #cddbe3;margin-top:26px;padding-top:12px;color:#687e8a;font-size:9pt;}
+</style>
+        <table class="header"><tr><td><img class="logo" t-att-src="request._report_logo_data_uri()" alt="Logo METRACO"/></td>
+          <td class="company"><strong t-esc="company.name"/><br/><span>Direction des ressources humaines</span>
+          <div t-if="company.street" t-esc="company.street"/><div t-if="company.city"><span t-esc="company.zip or ''"/> <span t-esc="company.city"/></div>
+          <div t-if="company.email" t-esc="company.email"/><div t-if="company.phone" t-esc="company.phone"/></td></tr></table>
+        <div class="eyebrow">RESSOURCES HUMAINES · DOCUMENT ADMINISTRATIF</div><h1>DEMANDE DE CRÉDIT</h1>
+        <table class="meta"><tr><td><span class="label">RÉFÉRENCE DU DOCUMENT</span><br/><strong t-esc="request.name"/></td><td><span class="label">DATE D’ÉMISSION</span><br/><strong t-esc="request._report_issue_date()"/></td></tr></table>
+        <div class="content"><p>La présente demande de crédit est établie pour <strong t-field="request.requester_employee_id.name"/>, employé(e) au sein de <strong t-esc="company.name"/>.</p>
+<div class="info" t-if="request.department_id"><span class="label">DÉPARTEMENT</span><br/><span t-field="request.department_id.name"/></div>
+<div t-if="request.description"><span class="label">OBJET ET INFORMATIONS COMMUNIQUÉES</span><p style="white-space:pre-wrap" t-esc="request.description"/></div>
+<p>Ce document récapitule la demande de l’employé. Il ne constitue ni un accord de financement ni un engagement de caution de l’employeur.</p></div>
+        <table class="signature"><tr><td>Fait<span t-if="company.city"> à <span t-esc="company.city"/></span>, le <span t-esc="request._report_issue_date()"/>.</td><td style="text-align:right"><strong>Pour la société</strong><br/>Signature et cachet<div class="signature-space"/></td></tr></table>
+        <div class="hr-document-footer"><strong t-esc="company.name"/> · Service des ressources humaines<br/>Référence : <span t-esc="request.name"/></div>
+      </div></div></t></t></template>
+</odoo>

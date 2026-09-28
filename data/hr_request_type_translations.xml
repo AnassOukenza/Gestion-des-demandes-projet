@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Runs on install and upgrade, after the translatable name field exists. -->
+    <function model="hr.request.type" name="_translate_existing_french_names"/>
+</odoo>

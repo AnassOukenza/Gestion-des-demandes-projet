@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <!-- Les règles sans groupe sont globales. Les règles par groupe complètent les ACL ; ne pas fusionner leurs domaines sans revoir les droits cumulés. -->
+  <data>
+    <record id="group_hr_request_hr_assistance" model="res.groups">
+      <field name="name">HR Assistance</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+
+    <record id="group_hr_request_administration" model="res.groups">
+      <field name="name">Administration des demandes</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_hr_request_metraco" model="res.groups">
+      <field name="name">Gestion des demandes — Metraco</field>
+      <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <record id="group_hr_request_daiko_damos" model="res.groups">
+      <field name="name">Gestion des demandes — Autres</field>
+      <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <!-- Les brouillons restent privés, même pour Administration. -->
+    <record id="rule_hr_request_draft_private" model="ir.rule">
+      <field name="name">HR Requests: Draft Privacy</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="domain_force">user._hr_request_draft_domain()</field>
+    </record>
+
+    <record id="rule_hr_request_employee_own" model="ir.rule">
+      <field name="name">Employee: Own HR Requests</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="groups" eval="[(6, 0, [ref('base.group_user')])]"/>
+      <field name="domain_force">[('requester_employee_id.user_id', '=', user.id)]</field>
+    </record>
+
+    <record id="rule_hr_request_administration" model="ir.rule">
+      <field name="name">Administration: All HR Requests</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_administration'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_hr_request_company_boundary" model="ir.rule">
+      <field name="name">Document Management: Company Boundary</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="domain_force">user._hr_request_company_domain()</field>
+    </record>
+
+    <record id="rule_hr_employee_employee_own" model="ir.rule">
+      <field name="name">Employee: Own Employee Record</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(6, 0, [ref('base.group_user')])]"/>
+      <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+
+    <record id="rule_hr_employee_hr_assistance" model="ir.rule">
+      <field name="name">HR Assistance: Assigned Employees</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_hr_assistance'))]"/>
+      <field name="domain_force">['|', ('id', 'in', user.managed_employee_ids.ids), ('work_contact_id', '=', user.partner_id.id)]</field>
+    </record>
+
+    <record id="rule_group_hr_request_metraco" model="ir.rule">
+      <field name="name">Gestion des demandes — Metraco</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_metraco'))]"/>
+      <field name="domain_force">[('requester_employee_id.company_id', 'in', user._hr_request_management_company_ids())]</field>
+    </record>
+
+    <record id="rule_group_hr_request_daiko_damos" model="ir.rule">
+      <field name="name">Gestion des demandes — Autres</field>
+      <field name="model_id" ref="model_hr_request"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_daiko_damos'))]"/>
+      <field name="domain_force">[('requester_employee_id.company_id', 'in', user._hr_request_management_company_ids())]</field>
+    </record>
+
+    <record id="rule_hr_employee_metraco" model="ir.rule">
+      <field name="name">Document managers: company employees</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_metraco'))]"/>
+      <field name="domain_force">[('company_id', 'in', user._hr_request_management_company_ids())]</field>
+    </record>
+
+    <record id="rule_hr_employee_daiko_damos" model="ir.rule">
+      <field name="name">Document managers: company employees</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_daiko_damos'))]"/>
+      <field name="domain_force">[('company_id', 'in', user._hr_request_management_company_ids())]</field>
+    </record>
+
+    <record id="rule_hr_employee_administration" model="ir.rule">
+      <field name="name">Administration: All Employees</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(4, ref('group_hr_request_administration'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+      <field name="perm_read" eval="True"/>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_hr_employee_configuration" model="ir.rule">
+      <field name="name">Document configuration: Employees in allowed companies</field>
+      <field name="model_id" ref="hr.model_hr_employee"/>
+      <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+      <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+      <field name="perm_write" eval="False"/>
+      <field name="perm_create" eval="False"/>
+      <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <function model="res.users" name="_sync_hr_assistance_users"/>
+    <function model="res.users" name="_sync_request_group_labels"/>
+  </data>
+</odoo>

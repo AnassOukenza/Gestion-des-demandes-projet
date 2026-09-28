@@ -1,0 +1,38 @@
+{
+    'name': 'Document Management',
+    'version': '1.0',
+    'category': 'Human Resources',
+    'summary': 'Manage employee document requests and certificates',
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+        'mail',
+        'hr',
+        'portal',
+    ],
+    'data': [
+        'security/hr_request_security.xml',
+        'security/portal_security.xml',
+        'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
+        'data/hr_request_type_translations.xml',
+        'report/hr_request_report_template.xml',
+        'report/hr_request_report.xml',
+        'views/res_users_views.xml',
+        'views/hr_request_type_views.xml',
+        'views/hr_request_views.xml',
+        'views/hr_request_sign_wizard_views.xml',
+        'views/hr_request_reject_wizard_views.xml',
+        'views/hr_request_menus.xml',
+        'views/hr_assistance_assignment_views.xml',
+        'views/portal_templates.xml',
+    ],
+    'assets': {
+        'web.assets_frontend': [
+            'hr_requests/static/src/css/hr_requests_portal.css',
+        ],
+    },
+    'images': ['static/description/icon.png'],
+    'installable': True,
+    'application': True,
+}

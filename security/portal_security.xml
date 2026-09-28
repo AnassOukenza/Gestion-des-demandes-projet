@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <!-- HR Assistance hérite du portail : la règle des employés affectés complète celle des demandes personnelles. -->
+    <!-- Portal own -->
+    <record id="rule_hr_request_portal_own" model="ir.rule">
+        <field name="name">Portal: Own HR Requests</field>
+        <field name="model_id" ref="model_hr_request"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">
+            [('requester_employee_id.work_contact_id', '=', user.partner_id.id)]
+        </field>
+    </record>
+
+    <!-- HR assistance -->
+    <record id="rule_hr_request_portal_hr_assistance" model="ir.rule">
+        <field name="name">Portal HR Assistance: Managed Requests</field>
+        <field name="model_id" ref="model_hr_request"/>
+        <field name="groups" eval="[(4, ref('group_hr_request_hr_assistance'))]"/>
+        <field name="domain_force">
+            ['|',
+                ('requester_employee_id', 'in', user.managed_employee_ids.ids),
+                ('requester_employee_id.work_contact_id', '=', user.partner_id.id)
+            ]
+        </field>
+    </record>
+</odoo>

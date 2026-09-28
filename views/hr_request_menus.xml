@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="action_hr_request_my" model="ir.actions.act_window">
+    <field name="name">My Requests</field>
+    <field name="res_model">hr.request</field>
+    <field name="search_view_id" ref="hr_requests_search_view"/>
+    <field name="view_mode">list,kanban,form</field>
+    <field name="domain">[('requester_employee_id.user_id', '=', uid)]</field>
+  </record>
+  <record id="action_hr_request_my_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="hr_requests_my_list_view"/>
+    <field name="act_window_id" ref="action_hr_request_my"/>
+  </record>
+  <record id="action_hr_request_my_kanban" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="hr_requests_my_kanban_view"/>
+    <field name="act_window_id" ref="action_hr_request_my"/>
+  </record>
+  <record id="action_hr_request_my_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="3"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="hr_requests_form_view"/>
+    <field name="act_window_id" ref="action_hr_request_my"/>
+  </record>
+
+  <record id="action_hr_request_manage" model="ir.actions.act_window">
+    <field name="name">Manage Requests</field>
+    <field name="res_model">hr.request</field>
+    <field name="search_view_id" ref="hr_requests_search_view"/>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('state', '!=', 'draft')]</field>
+  </record>
+  <record id="action_hr_request_manage_kanban" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="hr_requests_manage_kanban_view"/>
+    <field name="act_window_id" ref="action_hr_request_manage"/>
+  </record>
+  <record id="action_hr_request_manage_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="hr_requests_manage_list_view"/>
+    <field name="act_window_id" ref="action_hr_request_manage"/>
+  </record>
+  <record id="action_hr_request_manage_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="3"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="hr_requests_form_view"/>
+    <field name="act_window_id" ref="action_hr_request_manage"/>
+  </record>
+
+  <record id="action_hr_request_all" model="ir.actions.act_window">
+    <field name="name">All Requests</field>
+    <field name="res_model">hr.request</field>
+    <field name="search_view_id" ref="hr_requests_search_view"/>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('state', '!=', 'draft')]</field>
+  </record>
+
+  <menuitem id="menu_hr_request_root" name="Document Management" sequence="10" web_icon="hr_requests,static/description/icon.png"/>
+  <menuitem id="menu_hr_request_my_requests" name="My Requests" parent="menu_hr_request_root" action="action_hr_request_my" sequence="10"/>
+  <menuitem id="menu_hr_request_manage" name="Manage Requests" parent="menu_hr_request_root" action="action_hr_request_manage" sequence="20" groups="hr_requests.group_hr_request_metraco,hr_requests.group_hr_request_daiko_damos"/>
+  <menuitem id="menu_hr_request_all" name="All Requests" parent="menu_hr_request_root" action="action_hr_request_all" sequence="25" groups="hr_requests.group_hr_request_administration"/>
+  <menuitem id="menu_hr_request_configuration" name="Configuration" parent="menu_hr_request_root" sequence="90" groups="hr_requests.group_hr_request_administration,base.group_system"/>
+  <menuitem id="menu_hr_request_type" name="Request Types" parent="menu_hr_request_configuration" action="action_hr_request_type" sequence="10" groups="hr_requests.group_hr_request_administration,base.group_system"/>
+  <record id="menu_hr_request_manage" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('group_hr_request_metraco'), ref('group_hr_request_daiko_damos')])]"/>
+  </record>
+</odoo>

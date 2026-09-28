@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="paperformat_hr_request" model="report.paperformat"><field name="name">Documents RH A4</field><field name="format">A4</field><field name="orientation">Portrait</field><field name="margin_top">18</field><field name="margin_bottom">18</field><field name="margin_left">18</field><field name="margin_right">18</field><field name="dpi">90</field></record><!-- Work certificate -->
+
+    <record id="action_report_work_certificate" model="ir.actions.report">
+        <field name="name">Work Certificate</field>
+        <field name="model">hr.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_requests.report_work_certificate</field>
+        <field name="report_file">hr_requests.report_work_certificate</field>
+        <field name="binding_model_id" eval="False"/>
+    <field name="paperformat_id" ref="paperformat_hr_request"/></record>
+
+
+    <!-- Salary certificate -->
+
+    <record id="action_report_salary_certificate" model="ir.actions.report">
+        <field name="name">Salary Certificate</field>
+        <field name="model">hr.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_requests.report_salary_certificate</field>
+        <field name="report_file">hr_requests.report_salary_certificate</field>
+        <field name="binding_model_id" eval="False"/>
+    <field name="paperformat_id" ref="paperformat_hr_request"/></record>
+
+
+    <!-- Credit request -->
+
+    <record id="action_report_credit_request" model="ir.actions.report">
+        <field name="name">Credit Request</field>
+        <field name="model">hr.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hr_requests.report_credit_request</field>
+        <field name="report_file">hr_requests.report_credit_request</field>
+        <field name="binding_model_id" eval="False"/>
+    <field name="paperformat_id" ref="paperformat_hr_request"/></record>
+
+</odoo>
